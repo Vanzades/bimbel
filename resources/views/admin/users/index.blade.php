@@ -17,7 +17,7 @@
             </div>
 
             <a
-                href="{{ route('users.create') }}"
+                href="{{ route('admin.users.create') }}"
                 class="inline-flex h-9 items-center justify-center rounded-md bg-slate-950 px-4 text-sm font-medium text-white transition hover:bg-slate-800"
             >
                 Tambah Akun
@@ -44,7 +44,7 @@
 
                 <form
                     method="GET"
-                    action="{{ route('users.index') }}"
+                    action="{{ route('admin.users.index') }}"
                     class="grid gap-3 md:grid-cols-[1fr_180px_auto]"
                 >
                     <div class="relative">
@@ -94,7 +94,7 @@
 
                         @if (request()->filled('search') || request()->filled('role'))
                             <a
-                                href="{{ route('users.index') }}"
+                                href="{{ route('admin.users.index') }}"
                                 class="inline-flex h-9 items-center rounded-md px-3 text-sm text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
                             >
                                 Reset
@@ -203,7 +203,7 @@
                                     <div class="flex items-center justify-end gap-1">
 
                                         <a
-                                            href="{{ route('users.show', $user) }}"
+                                            href="{{ route('admin.users.show', $user) }}"
                                             title="Detail"
                                             class="inline-flex h-8 w-8 items-center justify-center rounded-md text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
                                         >
@@ -221,7 +221,7 @@
                                         </a>
 
                                         <a
-                                            href="{{ route('users.edit', $user) }}"
+                                            href="{{ route('admin.users.edit', $user) }}"
                                             title="Edit"
                                             class="inline-flex h-8 w-8 items-center justify-center rounded-md text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
                                         >
@@ -240,7 +240,7 @@
                                         @if (!$user->isAdmin())
                                             <form
                                                 method="POST"
-                                                action="{{ route('users.destroy', $user) }}"
+                                                action="{{ route('admin.users.destroy', $user) }}"
                                                 onsubmit="return confirm('Yakin ingin menghapus akun ini?')"
                                             >
                                                 @csrf
@@ -302,7 +302,7 @@
                                     </p>
 
                                     <a
-                                        href="{{ route('users.create') }}"
+                                        href="{{ route('admin.users.create') }}"
                                         class="mt-4 inline-flex h-9 items-center rounded-md bg-slate-950 px-4 text-sm font-medium text-white hover:bg-slate-800"
                                     >
                                         Tambah Akun

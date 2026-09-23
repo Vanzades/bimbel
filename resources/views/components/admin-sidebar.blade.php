@@ -5,8 +5,8 @@
             'items' => [
                 [
                     'label' => 'Dashboard',
-                    'route' => 'dashboard',
-                    'icon' => 'dashboard',
+                    'route' => 'admin.dashboard',
+                    'icon' => 'admin.dashboard',
                 ],
             ],
         ],
@@ -15,33 +15,33 @@
             'items' => [
                 [
                     'label' => 'Akun',
-                    'route' => 'users.index',
-                    'icon' => 'users',
+                    'route' => 'admin.users.index',
+                    'icon' => 'admin.users',
                 ],
                 [
                     'label' => 'Guru',
-                    'route' => 'teachers.index',
-                    'icon' => 'teacher',
+                    'route' => 'admin.teachers.index',
+                    'icon' => 'admin.teacher',
                 ],
                 [
                     'label' => 'Siswa',
-                    'route' => 'students.index',
-                    'icon' => 'student',
+                    'route' => 'admin.students.index',
+                    'icon' => 'admin.student',
                 ],
                 [
                     'label' => 'Kelas',
-                    'route' => 'class-rooms.index',
-                    'icon' => 'class',
+                    'route' => 'admin.class-rooms.index',
+                    'icon' => 'admin.class',
                 ],
                 [
                     'label' => 'Jadwal Kelas',
-                    'route' => 'schedules.index',
-                    'icon' => 'schedule',
+                    'route' => 'admin.schedules.index',
+                    'icon' => 'admin.schedule',
                 ],
                 [
                     'label' => 'SPP',
-                    'route' => 'spp-bills.index',
-                    'icon' => 'spp',
+                    'route' => 'admin.spp-bills.index',
+                    'icon' => 'admin.spp',
                 ],
             ],
         ],
@@ -69,7 +69,7 @@
     class="admin-scrollbar fixed inset-y-0 left-0 z-50 flex w-64 -translate-x-full flex-col overflow-y-auto border-r border-slate-200 bg-white transition-transform duration-200 lg:translate-x-0"
 >
     <div class="flex h-16 shrink-0 items-center border-b border-slate-200 px-6">
-        <a href="{{ route('dashboard') }}" class="flex items-center gap-3">
+        <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3">
             <div class="flex h-8 w-8 items-center justify-center rounded-md bg-slate-950 text-sm font-bold text-white">
                 B
             </div>
@@ -106,7 +106,7 @@
                                 : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950' }}
                                 flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition"
                         >
-                            @if ($item['icon'] === 'dashboard')
+                            @if ($item['icon'] === 'admin.dashboard')
                                 <svg
                                     class="h-4 w-4 shrink-0"
                                     viewBox="0 0 24 24"
@@ -119,7 +119,7 @@
                                     <rect x="3" y="14" width="7" height="7" rx="1"/>
                                     <rect x="14" y="14" width="7" height="7" rx="1"/>
                                 </svg>
-                            @elseif ($item['icon'] === 'users')
+                            @elseif ($item['icon'] === 'admin.users')
                                 <svg
                                     class="h-4 w-4 shrink-0"
                                     viewBox="0 0 24 24"
@@ -132,7 +132,7 @@
                                     <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
                                     <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
                                 </svg>
-                            @elseif ($item['icon'] === 'teacher')
+                            @elseif ($item['icon'] === 'admin.teacher')
                                 <svg
                                     class="h-4 w-4 shrink-0"
                                     viewBox="0 0 24 24"
@@ -145,7 +145,7 @@
                                     <path d="M8 6h8"/>
                                     <path d="M8 10h6"/>
                                 </svg>
-                            @elseif ($item['icon'] === 'student')
+                            @elseif ($item['icon'] === 'admin.student')
                                 <svg
                                     class="h-4 w-4 shrink-0"
                                     viewBox="0 0 24 24"
@@ -157,7 +157,7 @@
                                     <path d="M6 12.5V16c3 2 9 2 12 0v-3.5"/>
                                     <path d="M22 10v6"/>
                                 </svg>
-                            @elseif ($item['icon'] === 'class')
+                            @elseif ($item['icon'] === 'admin.class')
                                 <svg
                                     class="h-4 w-4 shrink-0"
                                     viewBox="0 0 24 24"
@@ -171,7 +171,7 @@
                                     <path d="M9 11h6"/>
                                     <path d="M9 15h6"/>
                                 </svg>
-                            @elseif ($item['icon'] === 'schedule')
+                            @elseif ($item['icon'] === 'admin.schedule')
                                 <svg
                                     class="h-4 w-4 shrink-0"
                                     viewBox="0 0 24 24"
@@ -179,10 +179,14 @@
                                     stroke="currentColor"
                                     stroke-width="2"
                                 >
-                                    <circle cx="12" cy="12" r="9"/>
-                                    <path d="M12 7v5l3 2"/>
+                                    <rect x="3" y="4" width="18" height="17" rx="2"/>
+                                    <path d="M16 2v4"/>
+                                    <path d="M8 2v4"/>
+                                    <path d="M3 10h18"/>
+                                    <path d="M8 14h3"/>
+                                    <path d="M8 17h6"/>
                                 </svg>
-                            @elseif ($item['icon'] === 'spp')
+                            @elseif ($item['icon'] === 'admin.spp')
                                 <svg
                                     class="h-4 w-4 shrink-0"
                                     viewBox="0 0 24 24"
@@ -191,11 +195,12 @@
                                     stroke-width="2"
                                 >
                                     <rect x="3" y="4" width="18" height="16" rx="2"/>
-                                    <path d="M7 8h10"/>
-                                    <path d="M7 12h10"/>
-                                    <path d="M7 16h6"/>
+                                    <path d="M3 9h18"/>
+                                    <path d="M7 14h4"/>
+                                    <path d="M16 14h1"/>
+                                    <path d="M16 17h1"/>
                                 </svg>
-                            @else
+                            @elseif ($item['icon'] === 'profile')
                                 <svg
                                     class="h-4 w-4 shrink-0"
                                     viewBox="0 0 24 24"

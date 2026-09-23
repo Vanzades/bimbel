@@ -10,7 +10,7 @@
                 </p>
             </div>
 
-            <a href="{{ route('students.index') }}"
+            <a href="{{ route('admin.students.index') }}"
                 class="inline-flex items-center px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-200">
                 Kembali
             </a>
@@ -20,7 +20,7 @@
     <div class="py-8">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
-                <form action="{{ route('students.update', $student) }}" method="POST" class="space-y-6">
+                <form action="{{ route('admin.students.update', $student) }}" method="POST" class="space-y-6">
                     @csrf
                     @method('PUT')
 
@@ -154,7 +154,7 @@
 
                     <div class="flex items-center justify-end gap-3 pt-2">
                         <a
-                            href="{{ route('students.index') }}"
+                            href="{{ route('admin.students.index') }}"
                             class="px-4 py-2.5 bg-gray-100 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-200">
                             Batal
                         </a>

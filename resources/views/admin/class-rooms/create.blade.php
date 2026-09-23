@@ -11,7 +11,7 @@
             </div>
 
             <a
-                href="{{ route('class-rooms.index') }}"
+                href="{{ route('admin.class-rooms.index') }}"
                 class="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50">
                 Kembali
             </a>
@@ -33,7 +33,7 @@
 
                 <form
                     method="POST"
-                    action="{{ route('class-rooms.store') }}"
+                    action="{{ route('admin.class-rooms.store') }}"
                     class="p-6">
                     @csrf
 
@@ -137,7 +137,7 @@
 
                     <div class="mt-8 flex items-center justify-end gap-3 border-t border-gray-200 pt-6">
                         <a
-                            href="{{ route('class-rooms.index') }}"
+                            href="{{ route('admin.class-rooms.index') }}"
                             class="rounded-lg border border-gray-300 px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50">
                             Batal
                         </a>

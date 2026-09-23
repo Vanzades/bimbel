@@ -3,15 +3,15 @@
         <div class="flex items-center justify-between">
             <div>
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    Edit Akun Pengguna
+                    Tambah Akun Pengguna
                 </h2>
                 <p class="text-sm text-gray-500 mt-1">
-                    Perbarui informasi akun pengguna
+                    Buat akun login untuk Admin, Guru, atau Siswa
                 </p>
             </div>
 
             <a
-                href="{{ route('users.index') }}"
+                href="{{ route('admin.users.index') }}"
                 class="inline-flex items-center px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-200">
                 Kembali
             </a>
@@ -22,10 +22,8 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
-
-                <form action="{{ route('users.update', $user) }}" method="POST" class="space-y-6">
+                <form action="{{ route('admin.users.store') }}" method="POST" class="space-y-6">
                     @csrf
-                    @method('PUT')
 
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
@@ -36,9 +34,10 @@
                             type="text"
                             name="name"
                             id="name"
-                            value="{{ old('name', $user->name) }}"
+                            value="{{ old('name') }}"
                             required
-                            class="w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
+                            class="w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                            placeholder="Masukkan nama pengguna">
 
                         @error('name')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -54,9 +53,10 @@
                             type="email"
                             name="email"
                             id="email"
-                            value="{{ old('email', $user->email) }}"
+                            value="{{ old('email') }}"
                             required
-                            class="w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
+                            class="w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                            placeholder="contoh@email.com">
 
                         @error('email')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -73,13 +73,14 @@
                             id="role"
                             required
                             class="w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
-                            <option value="admin" {{ old('role', $user->role) === 'admin' ? 'selected' : '' }}>
+                            <option value="">Pilih Role</option>
+                            <option value="admin" {{ old('role') === 'admin' ? 'selected' : '' }}>
                                 Admin
                             </option>
-                            <option value="guru" {{ old('role', $user->role) === 'guru' ? 'selected' : '' }}>
+                            <option value="guru" {{ old('role') === 'guru' ? 'selected' : '' }}>
                                 Guru
                             </option>
-                            <option value="siswa" {{ old('role', $user->role) === 'siswa' ? 'selected' : '' }}>
+                            <option value="siswa" {{ old('role') === 'siswa' ? 'selected' : '' }}>
                                 Siswa
                             </option>
                         </select>
@@ -89,7 +90,7 @@
                         @enderror
                     </div>
 
-                    <div id="teacher-field">
+                    <div id="teacher-field" class="hidden">
                         <label for="teacher_id" class="block text-sm font-medium text-gray-700 mb-2">
                             Data Guru
                         </label>
@@ -103,18 +104,24 @@
                             @foreach ($teachers as $teacher)
                             <option
                                 value="{{ $teacher->id }}"
-                                {{ old('teacher_id', optional($user->teacher)->id) == $teacher->id ? 'selected' : '' }}>
+                                {{ old('teacher_id') == $teacher->id ? 'selected' : '' }}>
                                 {{ $teacher->name }} — {{ $teacher->identity_number }}
                             </option>
                             @endforeach
                         </select>
+
+                        @if ($teachers->isEmpty())
+                        <p class="mt-2 text-sm text-amber-600">
+                            Semua data guru aktif sudah memiliki akun atau belum tersedia.
+                        </p>
+                        @endif
 
                         @error('teacher_id')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    <div id="student-field">
+                    <div id="student-field" class="hidden">
                         <label for="student_id" class="block text-sm font-medium text-gray-700 mb-2">
                             Data Siswa
                         </label>
@@ -128,64 +135,66 @@
                             @foreach ($students as $student)
                             <option
                                 value="{{ $student->id }}"
-                                {{ old('student_id', optional($user->student)->id) == $student->id ? 'selected' : '' }}>
+                                {{ old('student_id') == $student->id ? 'selected' : '' }}>
                                 {{ $student->name }} — {{ $student->identity_number }}
                             </option>
                             @endforeach
                         </select>
+
+                        @if ($students->isEmpty())
+                        <p class="mt-2 text-sm text-amber-600">
+                            Semua data siswa aktif sudah memiliki akun atau belum tersedia.
+                        </p>
+                        @endif
 
                         @error('student_id')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    <div class="border-t border-gray-200 pt-6">
-                        <h3 class="text-base font-semibold text-gray-900">
-                            Ubah Password
-                        </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                                Password
+                            </label>
 
-                        <p class="text-sm text-gray-500 mt-1 mb-4">
-                            Kosongkan jika password tidak ingin diubah.
-                        </p>
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                required
+                                class="w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                                placeholder="Minimal 8 karakter">
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-
-                            <div>
-                                <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
-                                    Password Baru
-                                </label>
-
-                                <input
-                                    type="password"
-                                    name="password"
-                                    id="password"
-                                    class="w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
-                                    placeholder="Minimal 8 karakter">
-
-                                @error('password')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            <div>
-                                <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-2">
-                                    Konfirmasi Password
-                                </label>
-
-                                <input
-                                    type="password"
-                                    name="password_confirmation"
-                                    id="password_confirmation"
-                                    class="w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
-                                    placeholder="Ulangi password">
-                            </div>
-
+                            @error('password')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
                         </div>
+
+                        <div>
+                            <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-2">
+                                Konfirmasi Password
+                            </label>
+
+                            <input
+                                type="password"
+                                name="password_confirmation"
+                                id="password_confirmation"
+                                required
+                                class="w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                                placeholder="Ulangi password">
+                        </div>
+                    </div>
+
+                    <div class="rounded-lg bg-gray-50 border border-gray-200 p-4">
+                        <p class="text-sm text-gray-600">
+                            Untuk akun Guru atau Siswa, akun akan otomatis dihubungkan dengan data master yang dipilih.
+                        </p>
                     </div>
 
                     <div class="flex items-center justify-end gap-3 pt-2">
                         <a
-                            href="{{ route('users.index') }}"
+                            href="{{ route('admin.users.index') }}"
                             class="px-4 py-2.5 bg-gray-100 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-200">
                             Batal
                         </a>
@@ -193,13 +202,12 @@
                         <button
                             type="submit"
                             class="px-5 py-2.5 bg-indigo-600 rounded-lg text-sm font-medium text-white hover:bg-indigo-700">
-                            Simpan Perubahan
+                            Buat Akun
                         </button>
                     </div>
-
                 </form>
-
             </div>
+
         </div>
     </div>
 

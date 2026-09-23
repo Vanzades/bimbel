@@ -11,7 +11,7 @@
             </div>
 
             <a
-                href="{{ route('students.index') }}"
+                href="{{ route('admin.students.index') }}"
                 class="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50">
                 Kembali
             </a>
@@ -32,7 +32,7 @@
 
                 <form
                     method="POST"
-                    action="{{ route('students.store') }}"
+                    action="{{ route('admin.students.store') }}"
                     class="p-6">
                     @csrf
 
@@ -224,7 +224,7 @@
 
                     <div class="mt-8 flex items-center justify-end gap-3 border-t border-gray-200 pt-6">
                         <a
-                            href="{{ route('students.index') }}"
+                            href="{{ route('admin.students.index') }}"
                             class="rounded-lg border border-gray-300 px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50">
                             Batal
                         </a>

@@ -50,7 +50,7 @@ class ScheduleController extends Controller
 
         $classRooms = ClassRoom::orderBy('name')->get();
 
-        return view('schedules.index', compact('schedules', 'classRooms'));
+        return view('admin.schedules.index', compact('schedules', 'classRooms'));
     }
 
     public function create()
@@ -59,7 +59,7 @@ class ScheduleController extends Controller
 
         $teachers = Teacher::where('status', 'active')->orderBy('name')->get();
 
-        return view('schedules.create', compact('classRooms', 'teachers'));
+        return view('admin.schedules.create', compact('classRooms', 'teachers'));
     }
 
     public function store(Request $request)
@@ -95,14 +95,14 @@ class ScheduleController extends Controller
 
         Schedule::create($validated);
 
-        return redirect()->route('schedules.index')->with('success', 'Jadwal kelas berhasil ditambahkan.');
+        return redirect()->route('admin.schedules.index')->with('success', 'Jadwal kelas berhasil ditambahkan.');
     }
 
     public function show(Schedule $schedule)
     {
         $schedule->load(['classRoom', 'teacher']);
 
-        return view('schedules.show', compact('schedule'));
+        return view('admin.schedules.show', compact('schedule'));
     }
 
     public function edit(Schedule $schedule)
@@ -111,7 +111,7 @@ class ScheduleController extends Controller
 
         $teachers = Teacher::orderBy('name')->get();
 
-        return view('schedules.edit', compact('schedule', 'classRooms', 'teachers'));
+        return view('admin.schedules.edit', compact('schedule', 'classRooms', 'teachers'));
     }
 
     public function update(Request $request, Schedule $schedule)
@@ -147,14 +147,14 @@ class ScheduleController extends Controller
 
         $schedule->update($validated);
 
-        return redirect()->route('schedules.index')->with('success', 'Jadwal kelas berhasil diperbarui.');
+        return redirect()->route('admin.schedules.index')->with('success', 'Jadwal kelas berhasil diperbarui.');
     }
 
     public function destroy(Schedule $schedule)
     {
         $schedule->delete();
 
-        return redirect()->route('schedules.index')->with('success', 'Jadwal kelas berhasil dihapus.');
+        return redirect()->route('admin.schedules.index')->with('success', 'Jadwal kelas berhasil dihapus.');
     }
 
     private function findConflict(array $data, ?int $scheduleId = null): ?string

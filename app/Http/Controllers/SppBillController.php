@@ -46,14 +46,14 @@ class SppBillController extends Controller
 
         $years = SppBill::query()->select('year')->distinct()->orderByDesc('year')->pluck('year');
 
-        return view('spp-bills.index', compact('sppBills', 'classRooms', 'years'));
+        return view('admin.spp-bills.index', compact('sppBills', 'classRooms', 'years'));
     }
 
     public function create()
     {
         $students = Student::with('classRoom')->where('status', 'active')->orderBy('name')->get();
 
-        return view('spp-bills.create', compact('students'));
+        return view('admin.spp-bills.create', compact('students'));
     }
 
     public function store(Request $request)
@@ -125,21 +125,21 @@ class SppBillController extends Controller
 
         SppBill::create($validated);
 
-        return redirect()->route('spp-bills.index')->with('success', 'Tagihan SPP berhasil ditambahkan.');
+        return redirect()->route('admin.spp-bills.index')->with('success', 'Tagihan SPP berhasil ditambahkan.');
     }
 
     public function show(SppBill $sppBill)
     {
         $sppBill->load(['student.classRoom']);
 
-        return view('spp-bills.show', compact('sppBill'));
+        return view('admin.spp-bills.show', compact('sppBill'));
     }
 
     public function edit(SppBill $sppBill)
     {
         $students = Student::with('classRoom')->orderBy('name')->get();
 
-        return view('spp-bills.edit', compact('sppBill', 'students'));
+        return view('admin.spp-bills.edit', compact('sppBill', 'students'));
     }
 
     public function update(Request $request, SppBill $sppBill)
@@ -212,13 +212,13 @@ class SppBillController extends Controller
 
         $sppBill->update($validated);
 
-        return redirect()->route('spp-bills.index')->with('success', 'Tagihan SPP berhasil diperbarui.');
+        return redirect()->route('admin.spp-bills.index')->with('success', 'Tagihan SPP berhasil diperbarui.');
     }
 
     public function destroy(SppBill $sppBill)
     {
         $sppBill->delete();
 
-        return redirect()->route('spp-bills.index')->with('success', 'Tagihan SPP berhasil dihapus.');
+        return redirect()->route('admin.spp-bills.index')->with('success', 'Tagihan SPP berhasil dihapus.');
     }
 }

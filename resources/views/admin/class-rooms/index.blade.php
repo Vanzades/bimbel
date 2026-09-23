@@ -17,7 +17,7 @@
             </div>
 
             <a
-                href="{{ route('class-rooms.create') }}"
+                href="{{ route('admin.class-rooms.create') }}"
                 class="inline-flex h-9 items-center justify-center rounded-md bg-slate-950 px-4 text-sm font-medium text-white transition hover:bg-slate-800"
             >
                 Tambah Kelas
@@ -29,7 +29,7 @@
             <div class="border-b border-slate-200 p-5">
                 <form
                     method="GET"
-                    action="{{ route('class-rooms.index') }}"
+                    action="{{ route('admin.class-rooms.index') }}"
                     class="flex flex-col gap-3 sm:flex-row"
                 >
                     <div class="relative flex-1">
@@ -84,7 +84,7 @@
 
                         @if (request()->filled('search') || request()->filled('status'))
                             <a
-                                href="{{ route('class-rooms.index') }}"
+                                href="{{ route('admin.class-rooms.index') }}"
                                 class="inline-flex h-9 items-center rounded-md px-3 text-sm text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
                             >
                                 Reset
@@ -205,7 +205,7 @@
                                     <div class="flex items-center justify-end gap-1">
 
                                         <a
-                                            href="{{ route('class-rooms.show', $classRoom) }}"
+                                            href="{{ route('admin.class-rooms.show', $classRoom) }}"
                                             title="Detail"
                                             class="inline-flex h-8 w-8 items-center justify-center rounded-md text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
                                         >
@@ -223,7 +223,7 @@
                                         </a>
 
                                         <a
-                                            href="{{ route('class-rooms.edit', $classRoom) }}"
+                                            href="{{ route('admin.class-rooms.edit', $classRoom) }}"
                                             title="Edit"
                                             class="inline-flex h-8 w-8 items-center justify-center rounded-md text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
                                         >
@@ -323,7 +323,7 @@
                                     </p>
 
                                     <a
-                                        href="{{ route('class-rooms.create') }}"
+                                        href="{{ route('admin.class-rooms.create') }}"
                                         class="mt-4 inline-flex h-9 items-center rounded-md bg-slate-950 px-4 text-sm font-medium text-white transition hover:bg-slate-800"
                                     >
                                         Tambah Kelas

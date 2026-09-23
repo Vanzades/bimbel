@@ -33,7 +33,7 @@ class UserController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        return view('users.index', compact('users'));
+        return view('admin.users.index', compact('users'));
     }
 
     public function create()
@@ -48,7 +48,7 @@ class UserController extends Controller
             ->orderBy('name')
             ->get();
 
-        return view('users.create', compact('teachers', 'students'));
+        return view('admin.users.create', compact('teachers', 'students'));
     }
 
     public function store(Request $request)
@@ -118,7 +118,7 @@ class UserController extends Controller
         }
 
         return redirect()
-            ->route('users.index')
+            ->route('admin.users.index')
             ->with('success', 'Akun berhasil dibuat.');
     }
 
@@ -126,7 +126,7 @@ class UserController extends Controller
     {
         $user->load(['teacher', 'student']);
 
-        return view('users.show', compact('user'));
+        return view('admin.users.show', compact('user'));
     }
 
     public function edit(User $user)
@@ -145,7 +145,7 @@ class UserController extends Controller
             ->orderBy('name')
             ->get();
 
-        return view('users.edit', compact('user', 'teachers', 'students'));
+        return view('admin.users.edit', compact('user', 'teachers', 'students'));
     }
 
     public function update(Request $request, User $user)
@@ -226,7 +226,7 @@ class UserController extends Controller
         }
 
         return redirect()
-            ->route('users.index')
+            ->route('admin.users.index')
             ->with('success', 'Akun berhasil diperbarui.');
     }
 
@@ -234,14 +234,14 @@ class UserController extends Controller
     {
         if ($user->isAdmin()) {
             return redirect()
-                ->route('users.index')
+                ->route('admin.users.index')
                 ->with('error', 'Akun administrator tidak dapat dihapus melalui halaman ini.');
         }
 
         $user->delete();
 
         return redirect()
-            ->route('users.index')
+            ->route('admin.users.index')
             ->with('success', 'Akun berhasil dihapus.');
     }
 }

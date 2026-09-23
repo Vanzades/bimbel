@@ -5,7 +5,7 @@
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
                 <div class="flex items-center gap-2 text-sm text-slate-500">
-                    <a href="{{ route('dashboard') }}" class="transition hover:text-slate-900">
+                    <a href="{{ route('admin.dashboard') }}" class="transition hover:text-slate-900">
                         Dashboard
                     </a>
                     <span>/</span>
@@ -22,7 +22,7 @@
             </div>
 
             <a
-                href="{{ route('spp-bills.create') }}"
+                href="{{ route('admin.spp-bills.create') }}"
                 class="inline-flex h-10 items-center justify-center rounded-md bg-slate-950 px-4 text-sm font-medium text-white transition hover:bg-slate-800"
             >
                 + Tambah Tagihan
@@ -46,7 +46,7 @@
         <div class="rounded-lg border border-slate-200 bg-white shadow-sm">
             <form
                 method="GET"
-                action="{{ route('spp-bills.index') }}"
+                action="{{ route('admin.spp-bills.index') }}"
                 class="border-b border-slate-200 p-4"
             >
                 <div class="grid gap-3 md:grid-cols-2 lg:grid-cols-5">
@@ -203,7 +203,7 @@
 
                         @if (request()->hasAny(['search', 'class_room_id', 'status', 'month', 'year']))
                             <a
-                                href="{{ route('spp-bills.index') }}"
+                                href="{{ route('admin.spp-bills.index') }}"
                                 class="inline-flex h-10 items-center rounded-md border border-slate-200 bg-white px-4 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
                             >
                                 Reset
@@ -297,14 +297,14 @@
                                 <td class="px-6 py-4">
                                     <div class="flex items-center justify-end gap-1">
                                         <a
-                                            href="{{ route('spp-bills.show', $sppBill) }}"
+                                            href="{{ route('admin.spp-bills.show', $sppBill) }}"
                                             class="rounded-md px-2.5 py-1.5 text-xs font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
                                         >
                                             Detail
                                         </a>
 
                                         <a
-                                            href="{{ route('spp-bills.edit', $sppBill) }}"
+                                            href="{{ route('admin.spp-bills.edit', $sppBill) }}"
                                             class="rounded-md px-2.5 py-1.5 text-xs font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
                                         >
                                             Edit
@@ -312,7 +312,7 @@
 
                                         <form
                                             method="POST"
-                                            action="{{ route('spp-bills.destroy', $sppBill) }}"
+                                            action="{{ route('admin.spp-bills.destroy', $sppBill) }}"
                                             onsubmit="return confirm('Hapus tagihan SPP ini?')"
                                         >
                                             @csrf
@@ -340,7 +340,7 @@
                                     </p>
 
                                     <a
-                                        href="{{ route('spp-bills.create') }}"
+                                        href="{{ route('admin.spp-bills.create') }}"
                                         class="mt-4 inline-flex h-9 items-center rounded-md bg-slate-950 px-3.5 text-sm font-medium text-white transition hover:bg-slate-800"
                                     >
                                         Tambah Tagihan

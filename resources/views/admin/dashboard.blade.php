@@ -228,7 +228,7 @@
                     </div>
 
                     <a
-                        href="{{ route('schedules.index') }}"
+                        href="{{ route('admin.schedules.index') }}"
                         class="text-xs font-medium text-slate-600 transition hover:text-slate-950"
                     >
                         Lihat semua
@@ -380,7 +380,7 @@
                     </div>
 
                     <a
-                        href="{{ route('teachers.index') }}"
+                        href="{{ route('admin.teachers.index') }}"
                         class="text-xs font-medium text-slate-600 transition hover:text-slate-950"
                     >
                         Lihat semua
@@ -433,7 +433,7 @@
                     </div>
 
                     <a
-                        href="{{ route('students.index') }}"
+                        href="{{ route('admin.students.index') }}"
                         class="text-xs font-medium text-slate-600 transition hover:text-slate-950"
                     >
                         Lihat semua

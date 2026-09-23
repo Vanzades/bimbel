@@ -1,6 +1,6 @@
 <x-admin-layout>
     <x-slot name="title">
-        Tambah Guru
+        Edit Guru
     </x-slot>
 
     <div class="space-y-6">
@@ -8,11 +8,11 @@
         <div class="flex items-center gap-3">
             <div>
                 <h1 class="text-2xl font-semibold tracking-tight text-slate-950">
-                    Tambah Guru
+                    Edit Guru
                 </h1>
 
                 <p class="mt-1 text-sm text-slate-500">
-                    Tambahkan data guru baru ke dalam sistem.
+                    Perbarui informasi guru yang dipilih.
                 </p>
             </div>
         </div>
@@ -33,10 +33,11 @@
 
         <form
             method="POST"
-            action="{{ route('teachers.store') }}"
+            action="{{ route('admin.teachers.update', $teacher) }}"
             class="rounded-lg border border-slate-200 bg-white"
         >
             @csrf
+            @method('PUT')
 
             <div class="border-b border-slate-200 px-5 py-4">
                 <h2 class="text-sm font-semibold text-slate-950">
@@ -44,7 +45,7 @@
                 </h2>
 
                 <p class="mt-1 text-xs text-slate-500">
-                    Isi informasi dasar guru dengan lengkap.
+                    Perbarui informasi dasar guru sesuai kebutuhan.
                 </p>
             </div>
 
@@ -62,10 +63,9 @@
                         id="name"
                         name="name"
                         type="text"
-                        value="{{ old('name') }}"
+                        value="{{ old('name', $teacher->name) }}"
                         required
                         autofocus
-                        placeholder="Masukkan nama lengkap"
                         class="h-10 w-full rounded-md border border-slate-200 bg-white px-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-400 focus:ring-2 focus:ring-slate-100"
                     >
 
@@ -88,10 +88,9 @@
                         id="identity_number"
                         name="identity_number"
                         type="text"
-                        value="{{ old('identity_number') }}"
+                        value="{{ old('identity_number', $teacher->identity_number) }}"
                         required
-                        placeholder="Masukkan nomor identitas"
-                        class="h-10 w-full rounded-md border border-slate-200 bg-white px-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-400 focus:ring-2 focus:ring-slate-100"
+                        class="h-10 w-full rounded-md border border-slate-200 bg-white px-3 text-sm text-slate-900 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-100"
                     >
 
                     @error('identity_number')
@@ -119,14 +118,14 @@
 
                         <option
                             value="male"
-                            @selected(old('gender') === 'male')
+                            @selected(old('gender', $teacher->gender) === 'male')
                         >
                             Laki-laki
                         </option>
 
                         <option
                             value="female"
-                            @selected(old('gender') === 'female')
+                            @selected(old('gender', $teacher->gender) === 'female')
                         >
                             Perempuan
                         </option>
@@ -151,7 +150,7 @@
                         id="email"
                         name="email"
                         type="email"
-                        value="{{ old('email') }}"
+                        value="{{ old('email', $teacher->email) }}"
                         placeholder="contoh@email.com"
                         class="h-10 w-full rounded-md border border-slate-200 bg-white px-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-400 focus:ring-2 focus:ring-slate-100"
                     >
@@ -175,7 +174,7 @@
                         id="phone"
                         name="phone"
                         type="text"
-                        value="{{ old('phone') }}"
+                        value="{{ old('phone', $teacher->phone) }}"
                         placeholder="08xxxxxxxxxx"
                         class="h-10 w-full rounded-md border border-slate-200 bg-white px-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-400 focus:ring-2 focus:ring-slate-100"
                     >
@@ -203,14 +202,14 @@
                     >
                         <option
                             value="active"
-                            @selected(old('status', 'active') === 'active')
+                            @selected(old('status', $teacher->status) === 'active')
                         >
                             Aktif
                         </option>
 
                         <option
                             value="inactive"
-                            @selected(old('status') === 'inactive')
+                            @selected(old('status', $teacher->status) === 'inactive')
                         >
                             Nonaktif
                         </option>
@@ -237,7 +236,7 @@
                         rows="4"
                         placeholder="Masukkan alamat lengkap"
                         class="w-full resize-none rounded-md border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-400 focus:ring-2 focus:ring-slate-100"
-                    >{{ old('address') }}</textarea>
+                    >{{ old('address', $teacher->address) }}</textarea>
 
                     @error('address')
                         <p class="mt-1.5 text-xs text-red-600">
@@ -251,7 +250,7 @@
             <div class="flex flex-col-reverse gap-2 border-t border-slate-200 bg-slate-50 px-5 py-4 sm:flex-row sm:justify-end">
 
                 <a
-                    href="{{ route('teachers.index') }}"
+                    href="{{ route('admin.teachers.index') }}"
                     class="inline-flex h-9 items-center justify-center rounded-md border border-slate-200 bg-white px-4 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
                 >
                     Batal
@@ -261,7 +260,7 @@
                     type="submit"
                     class="inline-flex h-9 items-center justify-center rounded-md bg-slate-950 px-4 text-sm font-medium text-white transition hover:bg-slate-800"
                 >
-                    Simpan Guru
+                    Simpan Perubahan
                 </button>
 
             </div>

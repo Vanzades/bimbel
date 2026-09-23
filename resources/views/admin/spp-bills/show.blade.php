@@ -2,7 +2,7 @@
     <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
             <div class="mb-2 flex items-center gap-2 text-sm text-slate-500">
-                <a href="{{ route('spp-bills.index') }}" class="transition hover:text-slate-950">
+                <a href="{{ route('admin.spp-bills.index') }}" class="transition hover:text-slate-950">
                     SPP
                 </a>
                 <span>/</span>
@@ -20,14 +20,14 @@
 
         <div class="flex flex-wrap items-center gap-2">
             <a
-                href="{{ route('spp-bills.index') }}"
+                href="{{ route('admin.spp-bills.index') }}"
                 class="inline-flex h-10 items-center justify-center rounded-md border border-slate-200 bg-white px-4 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50"
             >
                 Kembali
             </a>
 
             <a
-                href="{{ route('spp-bills.edit', $sppBill) }}"
+                href="{{ route('admin.spp-bills.edit', $sppBill) }}"
                 class="inline-flex h-10 items-center justify-center rounded-md bg-slate-950 px-4 text-sm font-medium text-white shadow-sm transition hover:bg-slate-800"
             >
                 Edit Tagihan
@@ -288,14 +288,14 @@
 
                 <div class="space-y-2 p-5">
                     <a
-                        href="{{ route('spp-bills.edit', $sppBill) }}"
+                        href="{{ route('admin.spp-bills.edit', $sppBill) }}"
                         class="flex h-10 w-full items-center justify-center rounded-md bg-slate-950 px-4 text-sm font-medium text-white transition hover:bg-slate-800"
                     >
                         Edit Tagihan
                     </a>
 
                     <form
-                        action="{{ route('spp-bills.destroy', $sppBill) }}"
+                        action="{{ route('admin.spp-bills.destroy', $sppBill) }}"
                         method="POST"
                         onsubmit="return confirm('Apakah Anda yakin ingin menghapus tagihan SPP ini?')"
                     >

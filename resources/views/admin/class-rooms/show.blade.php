@@ -12,13 +12,13 @@
 
             <div class="flex items-center gap-2">
                 <a
-                    href="{{ route('class-rooms.edit', $classRoom) }}"
+                    href="{{ route('admin.class-rooms.edit', $classRoom) }}"
                     class="inline-flex items-center px-4 py-2 bg-indigo-600 rounded-lg text-sm font-medium text-white hover:bg-indigo-700">
                     Edit
                 </a>
 
                 <a
-                    href="{{ route('class-rooms.index') }}"
+                    href="{{ route('admin.class-rooms.index') }}"
                     class="inline-flex items-center px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-200">
                     Kembali
                 </a>
@@ -145,7 +145,7 @@
 
                                 <td class="px-6 py-4 text-right">
                                     <a
-                                        href="{{ route('students.show', $student) }}"
+                                        href="{{ route('admin.students.show', $student) }}"
                                         class="text-indigo-600 hover:text-indigo-800 font-medium">
                                         Detail
                                     </a>

@@ -11,24 +11,27 @@ use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\StudentProfileController;
 use App\Http\Controllers\StudentSppController;
 use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeacherDashboardController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'role:admin'])->name('dashboard');
+Route::middleware(['auth', 'role:admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('teachers', TeacherController::class);
-    Route::resource('students', StudentController::class);
-    Route::resource('class-rooms', ClassRoomController::class);
-    Route::resource('users', UserController::class);
-    Route::resource('schedules', ScheduleController::class);
-    Route::resource('spp-bills', SppBillController::class);
-});
+        Route::resource('teachers', TeacherController::class);
+        Route::resource('students', StudentController::class);
+        Route::resource('class-rooms', ClassRoomController::class);
+        Route::resource('users', UserController::class);
+        Route::resource('schedules', ScheduleController::class);
+        Route::resource('spp-bills', SppBillController::class);
+    });
 
 Route::middleware(['auth', 'role:siswa'])->group(function () {
     Route::get('/student/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
@@ -45,13 +48,14 @@ Route::middleware(['auth', 'role:siswa'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:guru'])->group(function () {
-    Route::get('/teacher/dashboard', [TeacherDashboardController::class, 'index'])
-        ->name('teacher.dashboard');
+    Route::get('/teacher/dashboard', [TeacherDashboardController::class, 'index'])->name('teacher.dashboard');
 });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 

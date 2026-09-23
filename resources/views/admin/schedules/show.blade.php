@@ -11,7 +11,7 @@
             </div>
 
             <a
-                href="{{ route('schedules.edit', $schedule) }}"
+                href="{{ route('admin.schedules.edit', $schedule) }}"
                 class="px-4 py-2 bg-gray-800 text-white rounded-md text-sm font-semibold hover:bg-gray-700"
             >
                 Edit Jadwal
@@ -105,7 +105,7 @@
 
                 <div class="border-t border-gray-200 px-6 py-4">
                     <a
-                        href="{{ route('schedules.index') }}"
+                        href="{{ route('admin.schedules.index') }}"
                         class="text-sm font-semibold text-gray-600 hover:text-gray-900"
                     >
                         ← Kembali ke Jadwal

@@ -24,7 +24,7 @@
                     </div>
                 @endif
 
-                <form method="POST" action="{{ route('schedules.store') }}" class="space-y-6">
+                <form method="POST" action="{{ route('admin.schedules.store') }}" class="space-y-6">
                     @csrf
 
                     <div>
@@ -215,7 +215,7 @@
 
                     <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-200">
                         <a
-                            href="{{ route('schedules.index') }}"
+                            href="{{ route('admin.schedules.index') }}"
                             class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md text-sm font-semibold hover:bg-gray-200"
                         >
                             Batal

@@ -1,6 +1,6 @@
 <x-admin-layout>
     <x-slot name="title">
-        Siswa
+        Guru
     </x-slot>
 
     <div class="space-y-6">
@@ -8,19 +8,19 @@
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
                 <h1 class="text-2xl font-semibold tracking-tight text-slate-950">
-                    Siswa
+                    Guru
                 </h1>
 
                 <p class="mt-1 text-sm text-slate-500">
-                    Kelola data siswa yang terdaftar dalam sistem.
+                    Kelola data guru yang terdaftar dalam sistem.
                 </p>
             </div>
 
             <a
-                href="{{ route('students.create') }}"
+                href="{{ route('admin.teachers.create') }}"
                 class="inline-flex h-9 items-center justify-center rounded-md bg-slate-950 px-4 text-sm font-medium text-white transition hover:bg-slate-800"
             >
-                Tambah Siswa
+                Tambah Guru
             </a>
         </div>
 
@@ -29,8 +29,8 @@
             <div class="border-b border-slate-200 p-5">
                 <form
                     method="GET"
-                    action="{{ route('students.index') }}"
-                    class="grid gap-3 xl:grid-cols-[1fr_180px_180px_180px_auto]"
+                    action="{{ route('admin.teachers.index') }}"
+                    class="grid gap-3 lg:grid-cols-[1fr_160px_160px_auto]"
                 >
                     <div class="relative">
                         <svg
@@ -48,26 +48,10 @@
                             type="text"
                             name="search"
                             value="{{ request('search') }}"
-                            placeholder="Cari nama, NIK, atau telepon..."
+                            placeholder="Cari nama, NIK, email, atau telepon..."
                             class="h-9 w-full rounded-md border border-slate-200 bg-white pl-9 pr-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-400 focus:ring-2 focus:ring-slate-100"
                         >
                     </div>
-
-                    <select
-                        name="class_room_id"
-                        class="h-9 rounded-md border border-slate-200 bg-white px-3 text-sm text-slate-700 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-100"
-                    >
-                        <option value="">Semua Kelas</option>
-
-                        @foreach ($classRooms as $classRoom)
-                            <option
-                                value="{{ $classRoom->id }}"
-                                @selected((string) request('class_room_id') === (string) $classRoom->id)
-                            >
-                                {{ $classRoom->name }}
-                            </option>
-                        @endforeach
-                    </select>
 
                     <select
                         name="gender"
@@ -119,9 +103,9 @@
                             Filter
                         </button>
 
-                        @if (request()->filled('search') || request()->filled('class_room_id') || request()->filled('gender') || request()->filled('status'))
+                        @if (request()->filled('search') || request()->filled('gender') || request()->filled('status'))
                             <a
-                                href="{{ route('students.index') }}"
+                                href="{{ route('admin.teachers.index') }}"
                                 class="inline-flex h-9 items-center rounded-md px-3 text-sm text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
                             >
                                 Reset
@@ -136,15 +120,11 @@
                     <thead class="border-b border-slate-200 bg-slate-50">
                         <tr>
                             <th class="whitespace-nowrap px-5 py-3 text-xs font-medium text-slate-500">
-                                Siswa
+                                Guru
                             </th>
 
                             <th class="whitespace-nowrap px-5 py-3 text-xs font-medium text-slate-500">
                                 NIK
-                            </th>
-
-                            <th class="whitespace-nowrap px-5 py-3 text-xs font-medium text-slate-500">
-                                Kelas
                             </th>
 
                             <th class="whitespace-nowrap px-5 py-3 text-xs font-medium text-slate-500">
@@ -166,22 +146,22 @@
                     </thead>
 
                     <tbody class="divide-y divide-slate-200">
-                        @forelse ($students as $student)
+                        @forelse ($teachers as $teacher)
                             <tr class="transition hover:bg-slate-50">
 
                                 <td class="px-5 py-4">
                                     <div class="flex items-center gap-3">
                                         <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold uppercase text-slate-700">
-                                            {{ substr($student->name, 0, 1) }}
+                                            {{ substr($teacher->name, 0, 1) }}
                                         </div>
 
                                         <div class="min-w-0">
                                             <div class="truncate text-sm font-medium text-slate-900">
-                                                {{ $student->name }}
+                                                {{ $teacher->name }}
                                             </div>
 
                                             <div class="mt-0.5 text-xs text-slate-500">
-                                                {{ $student->address ? 'Data lengkap tersedia' : 'Alamat belum tersedia' }}
+                                                {{ $teacher->email ?: 'Email belum tersedia' }}
                                             </div>
                                         </div>
                                     </div>
@@ -189,36 +169,24 @@
 
                                 <td class="px-5 py-4">
                                     <span class="text-sm text-slate-600">
-                                        {{ $student->identity_number }}
-                                    </span>
-                                </td>
-
-                                <td class="px-5 py-4">
-                                    @if ($student->classRoom)
-                                        <span class="inline-flex rounded-md bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700">
-                                            {{ $student->classRoom->name }}
-                                        </span>
-                                    @else
-                                        <span class="text-sm text-slate-400">
-                                            —
-                                        </span>
-                                    @endif
-                                </td>
-
-                                <td class="px-5 py-4">
-                                    <span class="text-sm text-slate-600">
-                                        {{ $student->gender === 'male' ? 'Laki-laki' : 'Perempuan' }}
+                                        {{ $teacher->identity_number }}
                                     </span>
                                 </td>
 
                                 <td class="px-5 py-4">
                                     <span class="text-sm text-slate-600">
-                                        {{ $student->phone ?: '—' }}
+                                        {{ $teacher->gender === 'male' ? 'Laki-laki' : 'Perempuan' }}
                                     </span>
                                 </td>
 
                                 <td class="px-5 py-4">
-                                    @if ($student->status === 'active')
+                                    <span class="text-sm text-slate-600">
+                                        {{ $teacher->phone ?: '—' }}
+                                    </span>
+                                </td>
+
+                                <td class="px-5 py-4">
+                                    @if ($teacher->status === 'active')
                                         <span class="inline-flex rounded-full bg-emerald-50 px-2.5 py-1 text-[11px] font-medium text-emerald-700">
                                             Aktif
                                         </span>
@@ -233,7 +201,7 @@
                                     <div class="flex items-center justify-end gap-1">
 
                                         <a
-                                            href="{{ route('students.show', $student) }}"
+                                            href="{{ route('admin.teachers.show', $teacher) }}"
                                             title="Detail"
                                             class="inline-flex h-8 w-8 items-center justify-center rounded-md text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
                                         >
@@ -251,7 +219,7 @@
                                         </a>
 
                                         <a
-                                            href="{{ route('students.edit', $student) }}"
+                                            href="{{ route('admin.teachers.edit', $teacher) }}"
                                             title="Edit"
                                             class="inline-flex h-8 w-8 items-center justify-center rounded-md text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
                                         >
@@ -269,8 +237,8 @@
 
                                         <form
                                             method="POST"
-                                            action="{{ route('students.destroy', $student) }}"
-                                            onsubmit="return confirm('Yakin ingin menghapus data siswa ini?')"
+                                            action="{{ route('admin.teachers.destroy', $teacher) }}"
+                                            onsubmit="return confirm('Yakin ingin menghapus data guru ini?')"
                                         >
                                             @csrf
                                             @method('DELETE')
@@ -303,7 +271,7 @@
                         @empty
                             <tr>
                                 <td
-                                    colspan="7"
+                                    colspan="6"
                                     class="px-5 py-12 text-center"
                                 >
                                     <div class="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-400">
@@ -322,18 +290,18 @@
                                     </div>
 
                                     <p class="mt-3 text-sm font-medium text-slate-900">
-                                        Belum ada data siswa
+                                        Belum ada data guru
                                     </p>
 
                                     <p class="mt-1 text-xs text-slate-500">
-                                        Tambahkan data siswa untuk mulai mengelola peserta bimbingan.
+                                        Tambahkan data guru untuk mulai mengelola tenaga pengajar.
                                     </p>
 
                                     <a
-                                        href="{{ route('students.create') }}"
+                                        href="{{ route('admin.teachers.create') }}"
                                         class="mt-4 inline-flex h-9 items-center rounded-md bg-slate-950 px-4 text-sm font-medium text-white transition hover:bg-slate-800"
                                     >
-                                        Tambah Siswa
+                                        Tambah Guru
                                     </a>
                                 </td>
                             </tr>
@@ -342,9 +310,9 @@
                 </table>
             </div>
 
-            @if ($students->hasPages())
+            @if ($teachers->hasPages())
                 <div class="border-t border-slate-200 px-5 py-4">
-                    {{ $students->links() }}
+                    {{ $teachers->links() }}
                 </div>
             @endif
 
